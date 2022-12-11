@@ -13,6 +13,8 @@ namespace NodesApp.DAL
         DbSet<Node> Nodes { get; set; }
         DbSet<Post> Posts { get; set; }
         DbSet<User> Users { get; set; }
+        DbSet<NodeSettings> NodeSettings { get; set; }
+
 
 
     }
