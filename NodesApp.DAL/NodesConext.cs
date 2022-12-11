@@ -14,7 +14,8 @@ namespace NodesApp.DAL
         DbSet<Post> Posts { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<NodeSettings> NodeSettings { get; set; }
-
+        DbSet<Message> Messages { get; set; }
+        DbSet<Reaction> Reactions { get; set; }
 
 
     }
