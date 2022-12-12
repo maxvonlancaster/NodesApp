@@ -1,10 +1,18 @@
 ﻿using NodesApp.BLL.Services.Interfaces;
+using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 
 namespace NodesApp.BLL.Services
 {
     public class NodeSettingsService : IService<NodeSettings>
     {
+        private readonly NodesConext _context;
+
+        public NodeSettingsService(NodesConext context)
+        {
+            _context = context;
+        }
+
         public int Add(NodeSettings entity)
         {
             throw new NotImplementedException();

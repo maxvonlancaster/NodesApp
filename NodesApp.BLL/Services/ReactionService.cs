@@ -1,10 +1,18 @@
 ﻿using NodesApp.BLL.Services.Interfaces;
+using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 
 namespace NodesApp.BLL.Services
 {
     public class ReactionService : IService<Reaction>
     {
+        private readonly NodesConext _context;
+
+        public ReactionService(NodesConext context)
+        {
+            _context = context;
+        }
+
         public int Add(Reaction entity)
         {
             throw new NotImplementedException();

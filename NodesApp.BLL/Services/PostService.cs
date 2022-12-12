@@ -1,4 +1,5 @@
 ﻿using NodesApp.BLL.Services.Interfaces;
+using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,13 @@ namespace NodesApp.BLL.Services
 {
     public class PostService : IService<Post>
     {
+        private readonly NodesConext _context;
+
+        public PostService(NodesConext context)
+        {
+            _context = context;
+        }
+
         public int Add(Post entity)
         {
             throw new NotImplementedException();

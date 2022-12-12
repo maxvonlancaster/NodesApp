@@ -1,8 +1,15 @@
-﻿namespace NodesApp.DAL.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NodesApp.DAL.Entities
 {
     public class NodeSettings
     {
-        public Node Node { get; set; }
+        [Key]
+        public long NodeSettingsId { get; set; }
+        public long NodeId { get; set; }
+
+
+        public virtual Node Node { get; set; }
     
     
     }
