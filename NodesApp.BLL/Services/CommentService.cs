@@ -1,6 +1,8 @@
 ﻿using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
+using NodesApp.DAL.Exceptions;
+using System.Xml.Linq;
 
 namespace NodesApp.BLL.Services
 {
@@ -13,29 +15,43 @@ namespace NodesApp.BLL.Services
             _context = context;
         }
 
-        public int Add(Comment entity)
+        public long Add(Comment entity)
         {
-            throw new NotImplementedException();
+            _context.Comments.Add(entity);
+            _context.SaveChanges();
+            return entity.CommentId;
         }
 
-        public Comment Delete(int id)
+        public void Delete(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Comments.Find(id);
+            if (entity == null)
+            {
+                return;
+            }
+            _context.Comments.Remove(entity);
+            _context.SaveChanges();
         }
 
-        public Comment Get(int id)
+        public Comment Get(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Comments.Find(id);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
         }
 
         public IEnumerable<Comment> Get(Predicate<Comment> condition)
         {
-            throw new NotImplementedException();
+            return _context.Comments.Where(x => condition(x)).ToList();
         }
 
         public int Update(IEnumerable<Comment> entity)
         {
-            throw new NotImplementedException();
+            _context.Comments.UpdateRange(entity);
+            return _context.SaveChanges();
         }
     }
 }

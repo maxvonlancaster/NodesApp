@@ -1,6 +1,8 @@
-﻿using NodesApp.BLL.Services.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
+using NodesApp.DAL.Exceptions;
 
 namespace NodesApp.BLL.Services
 {
@@ -13,29 +15,48 @@ namespace NodesApp.BLL.Services
             _context = context;
         }
 
-        public int Add(Node entity)
+        public long Add(Node entity)
         {
-            throw new NotImplementedException();
+            _context.Nodes.Add(entity);
+            _context.SaveChanges();
+            return entity.NodeId;
         }
 
-        public Node Delete(int id)
+        public void Delete(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Nodes.Find(id);
+            if (entity == null)
+            {
+                return;
+            }
+            _context.Nodes.Remove(entity);
+            _context.SaveChanges();
         }
 
-        public Node Get(int id)
+        public Node Get(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Nodes.Find(id);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
         }
 
         public IEnumerable<Node> Get(Predicate<Node> condition)
+        {
+            return _context.Nodes.Where(x => condition(x)).ToList();
+        }
+
+        public Node GetNodeByLink(string link)
         {
             throw new NotImplementedException();
         }
 
         public int Update(IEnumerable<Node> entity)
         {
-            throw new NotImplementedException();
+            _context.Nodes.UpdateRange(entity);
+            return _context.SaveChanges();
         }
     }
 }

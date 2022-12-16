@@ -1,6 +1,7 @@
 ﻿using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
+using NodesApp.DAL.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,29 +19,43 @@ namespace NodesApp.BLL.Services
             _context = context;
         }
 
-        public int Add(Post entity)
+        public long Add(Post entity)
         {
-            throw new NotImplementedException();
+            _context.Posts.Add(entity);
+            _context.SaveChanges();
+            return entity.PostId;
         }
 
-        public Post Delete(int id)
+        public void Delete(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Posts.Find(id);
+            if (entity == null)
+            {
+                return;
+            }
+            _context.Posts.Remove(entity);
+            _context.SaveChanges();
         }
 
-        public Post Get(int id)
+        public Post Get(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Posts.Find(id);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
         }
 
         public IEnumerable<Post> Get(Predicate<Post> condition)
         {
-            throw new NotImplementedException();
+            return _context.Posts.Where(x => condition(x)).ToList();
         }
 
         public int Update(IEnumerable<Post> entity)
         {
-            throw new NotImplementedException();
+            _context.Posts.UpdateRange(entity);
+            return _context.SaveChanges();
         }
     }
 }

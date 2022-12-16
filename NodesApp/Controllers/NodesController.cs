@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 
@@ -9,18 +10,21 @@ namespace NodesApp.Controllers
     [ApiController]
     public class NodesController : ControllerBase
     {
+        private readonly INodeService _nodeService;
         private readonly NodesConext _context;
 
-        public NodesController(NodesConext context)
+        public NodesController(NodesConext context, INodeService nodeService)
         {
             _context = context;
+            _nodeService = nodeService;
         }
 
         // GET: api/Nodes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Node>>> GetNodes()
         {
-            return await _context.Nodes.ToListAsync();
+            return await Task.FromResult(_nodeService.Get(x => true).ToList());
+            //return await _context.Nodes.ToListAsync();
         }
 
         // GET: api/Nodes/5

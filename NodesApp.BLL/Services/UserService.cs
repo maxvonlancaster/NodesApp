@@ -1,6 +1,7 @@
 ﻿using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
+using NodesApp.DAL.Exceptions;
 
 namespace NodesApp.BLL.Services
 {
@@ -13,29 +14,55 @@ namespace NodesApp.BLL.Services
             _context = context;
         }
 
-        public int Add(User entity)
+        public long Add(User entity)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(entity);
+            _context.SaveChanges();
+            return entity.UserId;
         }
 
-        public User Delete(int id)
+        public void Delete(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Users.Find(id);
+            if (entity == null)
+            {
+                return;
+            }
+            _context.Users.Remove(entity);
+            _context.SaveChanges();
         }
 
-        public User Get(int id)
+        public User Get(long id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Users.Find(id);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
         }
 
         public IEnumerable<User> Get(Predicate<User> condition)
         {
-            throw new NotImplementedException();
+            return _context.Users
+                .Where(x => condition(x)).ToList();
+        }
+
+        public User GetByUserName(string userName)
+        {
+            var entity = _context.Users
+                .FirstOrDefault(x => x.UserName == userName);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
         }
 
         public int Update(IEnumerable<User> entity)
         {
-            throw new NotImplementedException();
+            _context.Users.UpdateRange(entity);
+            return _context.SaveChanges();
         }
     }
 }
