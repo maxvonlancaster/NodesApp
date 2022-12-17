@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NodesApp.BLL.Services;
+using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
+using NodesApp.DAL.Entities;
 
 namespace NodesApp
 {
@@ -16,6 +19,14 @@ namespace NodesApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddScoped<INodeService,NodeService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IService<Comment>, CommentService>();
+            services.AddScoped<IService<Message>, MessageService>();
+            services.AddScoped<IService<NodeSettings>, NodeSettingsService>();
+            services.AddScoped<IService<Post>, PostService>();
+            services.AddScoped<IService<Reaction>, ReactionService>();
+
             se‌​rvices.AddDbContext<NodesConext>(
                 opt‌​ions => { options.UseSqlServer(configRoot.GetConnectionString("NodesConnectionString")); }
                 
@@ -32,6 +43,11 @@ namespace NodesApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+            });
             app.UseAuthorization();
             app.MapRazorPages();
             app.Run();

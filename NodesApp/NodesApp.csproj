@@ -28,4 +28,10 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\Views\Nodes\CreateNode.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

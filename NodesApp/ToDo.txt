@@ -3,9 +3,32 @@
 1. View for every entity
 2. Submit and Edit for every entity
 3. Authorization
-4. 
+4. Middleware + Filters
 5. 
 6. 
 7. 
 8. 
 9. 
+
+
+
+
+
+
+On save:
+//_context.Entry(node).State = EntityState.Modified;
+//try
+//{
+//    await _context.SaveChangesAsync();
+//}
+//catch (DbUpdateConcurrencyException)
+//{
+//    if (!NodeExists(id))
+//    {
+//        return NotFound();
+//    }
+//    else
+//    {
+//        throw;
+//    }
+//}

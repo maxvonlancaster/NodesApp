@@ -1,107 +1,78 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using NodesApp.BLL.Services.Interfaces;
-using NodesApp.DAL;
 using NodesApp.DAL.Entities;
+using NodesApp.Models;
 
 namespace NodesApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NodesController : ControllerBase
+    public class NodesController : Controller
     {
         private readonly INodeService _nodeService;
-        private readonly NodesConext _context;
 
-        public NodesController(NodesConext context, INodeService nodeService)
+        public NodesController(INodeService nodeService)
         {
-            _context = context;
             _nodeService = nodeService;
         }
 
-        // GET: api/Nodes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Node>>> GetNodes()
+        public IActionResult Index()
         {
-            return await Task.FromResult(_nodeService.Get(x => true).ToList());
-            //return await _context.Nodes.ToListAsync();
+            return View();
         }
 
-        // GET: api/Nodes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Node>> GetNode(long id)
+        public IActionResult CreateNode() 
         {
-            var node = await _context.Nodes.FindAsync(id);
+            return View("~/Pages/Views/Nodes/CreateNode.cshtml");
+        }
+
+        public IActionResult ListNodes()
+        {
+            var entities = _nodeService.Get(x => true).ToList();
+            return View("~/Pages/Views/Nodes/ListNodes.cshtml", entities);
+        }
+
+        public IActionResult Node(long id)
+        {
+            var node = _nodeService.Get(id);
 
             if (node == null)
             {
                 return NotFound();
             }
 
-            return node;
+            return View("~/Pages/Views/Nodes/Node.cshtml", node);
+        }
+        
+
+        [HttpPost]
+        public IActionResult PostNode([FromBody]NodeModel model) 
+        {
+            model.DateCreated = DateTime.Now;
+            var id = _nodeService.Add(model.ToEntity());
+            return View("~/Pages/Views/Nodes/Node.cshtml");
         }
 
-        // PUT: api/Nodes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutNode(long id, Node node)
+        public IActionResult PutNode(long id, NodeModel node)
         {
             if (id != node.NodeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(node).State = EntityState.Modified;
+            _nodeService.Update(new List<Node>() { node.ToEntity() });
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NodeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            
 
             return NoContent();
         }
 
-        // POST: api/Nodes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Node>> PostNode(Node node)
-        {
-            _context.Nodes.Add(node);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetNode", new { id = node.NodeId }, node);
-        }
-
-        // DELETE: api/Nodes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteNode(long id)
+        public IActionResult DeleteNode(long id)
         {
-            var node = await _context.Nodes.FindAsync(id);
-            if (node == null)
-            {
-                return NotFound();
-            }
-
-            _context.Nodes.Remove(node);
-            await _context.SaveChangesAsync();
-
+            _nodeService.Delete(id);
             return NoContent();
         }
 
-        private bool NodeExists(long id)
-        {
-            return _context.Nodes.Any(e => e.NodeId == id);
-        }
+
     }
 }

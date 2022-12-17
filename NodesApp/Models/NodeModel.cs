@@ -1,8 +1,9 @@
-﻿using static NodesApp.DAL.Utils.Enums;
+﻿using NodesApp.DAL.Entities;
+using static NodesApp.DAL.Utils.Enums;
 
 namespace NodesApp.Models
 {
-    public class Node
+    public class NodeModel
     {
         public long NodeId { get; set; }
         public string Link { get; set; }
@@ -13,7 +14,7 @@ namespace NodesApp.Models
         public NodeTypeEnum NodeType { get; set; }
         public DateTime DateCreated { get; set; }
 
-        public Node(NodesApp.DAL.Entities.Node node)
+        public NodeModel(Node node)
         {
             NodeId = node.NodeId;
             Link = node.Link;   
@@ -23,6 +24,25 @@ namespace NodesApp.Models
             Color = node.Color;
             NodeType = node.NodeType;
             DateCreated = node.DateCreated;
+        }
+
+        public NodeModel()
+        {
+        }
+
+        public Node ToEntity() 
+        {
+            return new Node() 
+            {
+                NodeId = NodeId,
+                Link = Link,
+                NodeName = NodeName,
+                Text = Text,
+                File = File,
+                Color = Color,
+                NodeType = NodeType,
+                DateCreated = DateCreated
+            };
         }
     }
 }
