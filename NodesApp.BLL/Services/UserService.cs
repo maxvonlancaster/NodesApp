@@ -2,6 +2,7 @@
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 using NodesApp.DAL.Exceptions;
+using System.Linq.Expressions;
 
 namespace NodesApp.BLL.Services
 {
@@ -42,10 +43,10 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<User> Get(Predicate<User> condition)
+        public IEnumerable<User> Get(Expression<Func<User, bool>> condition)
         {
             return _context.Users
-                .Where(x => condition(x)).ToList();
+                .Where(condition).ToList();
         }
 
         public User GetByUserName(string userName)

@@ -3,6 +3,7 @@ using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 using NodesApp.DAL.Exceptions;
+using System.Linq.Expressions;
 
 namespace NodesApp.BLL.Services
 {
@@ -43,9 +44,9 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Node> Get(Predicate<Node> condition)
+        public IEnumerable<Node> Get(Expression<Func<Node, bool>> condition)
         {
-            return _context.Nodes.Where(x => condition(x)).ToList();
+            return _context.Nodes.Where(condition).ToList();
         }
 
         public Node GetNodeByLink(string link)

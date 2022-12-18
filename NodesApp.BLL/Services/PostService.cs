@@ -5,6 +5,7 @@ using NodesApp.DAL.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,9 +48,9 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Post> Get(Predicate<Post> condition)
+        public IEnumerable<Post> Get(Expression<Func<Post, bool>> condition)
         {
-            return _context.Posts.Where(x => condition(x)).ToList();
+            return _context.Posts.Where(condition).ToList();
         }
 
         public int Update(IEnumerable<Post> entity)

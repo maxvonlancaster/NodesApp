@@ -27,7 +27,12 @@ namespace NodesApp.Controllers
         public IActionResult ListNodes()
         {
             var entities = _nodeService.Get(x => true).ToList();
-            return View("~/Pages/Views/Nodes/ListNodes.cshtml", entities);
+            NodesListModel model = new NodesListModel();
+            foreach (var entity in entities) 
+            {
+                model.Nodes.Add(new NodeModel(entity));
+            }
+            return View("~/Pages/Views/Nodes/ListNodes.cshtml", model);
         }
 
         public IActionResult Node(long id)
@@ -61,8 +66,6 @@ namespace NodesApp.Controllers
 
             _nodeService.Update(new List<Node>() { node.ToEntity() });
 
-            
-
             return NoContent();
         }
 
@@ -72,7 +75,5 @@ namespace NodesApp.Controllers
             _nodeService.Delete(id);
             return NoContent();
         }
-
-
     }
 }

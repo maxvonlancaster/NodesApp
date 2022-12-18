@@ -1,6 +1,6 @@
 console.log("Nodes.JS");
 
-function create_node(){
+function createNode(){
     console.log($('#n_name').val());
 
     var data = {

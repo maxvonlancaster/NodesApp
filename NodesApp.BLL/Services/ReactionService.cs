@@ -2,6 +2,7 @@
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 using NodesApp.DAL.Exceptions;
+using System.Linq.Expressions;
 
 namespace NodesApp.BLL.Services
 {
@@ -42,9 +43,9 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Reaction> Get(Predicate<Reaction> condition)
+        public IEnumerable<Reaction> Get(Expression<Func<Reaction, bool>> condition)
         {
-            return _context.Reactions.Where(x => condition(x)).ToList();
+            return _context.Reactions.Where(condition).ToList();
         }
 
         public int Update(IEnumerable<Reaction> entity)
