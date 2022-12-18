@@ -43,9 +43,13 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Reaction> Get(Expression<Func<Reaction, bool>> condition)
+        public IEnumerable<Reaction> Get(Expression<Func<Reaction, bool>> condition, int skip, int take)
         {
-            return _context.Reactions.Where(condition).ToList();
+            return _context.Reactions
+                .Where(condition)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
         public int Update(IEnumerable<Reaction> entity)

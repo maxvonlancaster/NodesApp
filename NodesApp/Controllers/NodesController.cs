@@ -26,8 +26,9 @@ namespace NodesApp.Controllers
 
         public IActionResult ListNodes()
         {
-            var entities = _nodeService.Get(x => true).ToList();
+            var entities = _nodeService.Get(x => true, 0, 10).ToList();
             NodesListModel model = new NodesListModel();
+            model.Nodes = new List<NodeModel>();
             foreach (var entity in entities) 
             {
                 model.Nodes.Add(new NodeModel(entity));
@@ -44,7 +45,7 @@ namespace NodesApp.Controllers
                 return NotFound();
             }
 
-            return View("~/Pages/Views/Nodes/Node.cshtml", node);
+            return View("~/Pages/Views/Nodes/Node.cshtml", new NodeModel(node));
         }
         
 
@@ -53,7 +54,8 @@ namespace NodesApp.Controllers
         {
             model.DateCreated = DateTime.Now;
             var id = _nodeService.Add(model.ToEntity());
-            return View("~/Pages/Views/Nodes/Node.cshtml");
+            return RedirectToAction("ListNodes");
+            //return View("~/Pages/Views/Nodes/ListNodes.cshtml");
         }
 
         [HttpPut("{id}")]

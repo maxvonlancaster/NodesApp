@@ -44,9 +44,13 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Comment> Get(Expression<Func<Comment, bool>> condition)
+        public IEnumerable<Comment> Get(Expression<Func<Comment, bool>> condition, int skip, int take)
         {
-            return _context.Comments.Where(condition).ToList();
+            return _context.Comments
+                .Where(condition)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
         public int Update(IEnumerable<Comment> entity)

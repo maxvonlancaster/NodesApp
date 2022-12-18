@@ -48,9 +48,13 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Post> Get(Expression<Func<Post, bool>> condition)
+        public IEnumerable<Post> Get(Expression<Func<Post, bool>> condition, int skip, int take)
         {
-            return _context.Posts.Where(condition).ToList();
+            return _context.Posts
+                .Where(condition)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
         public int Update(IEnumerable<Post> entity)

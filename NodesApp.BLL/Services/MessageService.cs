@@ -43,9 +43,13 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Message> Get(Expression<Func<Message, bool>> condition)
+        public IEnumerable<Message> Get(Expression<Func<Message, bool>> condition, int skip, int take)
         {
-            return _context.Messages.Where(condition).ToList();
+            return _context.Messages
+                .Where(condition)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
         public int Update(IEnumerable<Message> entity)

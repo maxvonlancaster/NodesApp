@@ -9,7 +9,7 @@ namespace NodesApp.Models
         public string Link { get; set; }
         public string NodeName { get; set; }
         public string Text { get; set; }
-        public byte[] File { get; set; }
+        public byte[]? File { get; set; }
         public ColorsEnum Color { get; set; }
         public NodeTypeEnum NodeType { get; set; }
         public DateTime DateCreated { get; set; }

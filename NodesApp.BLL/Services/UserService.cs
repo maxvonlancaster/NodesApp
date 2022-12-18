@@ -43,10 +43,13 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<User> Get(Expression<Func<User, bool>> condition)
+        public IEnumerable<User> Get(Expression<Func<User, bool>> condition, int skip, int take)
         {
             return _context.Users
-                .Where(condition).ToList();
+                .Where(condition)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
         public User GetByUserName(string userName)

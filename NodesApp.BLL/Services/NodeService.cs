@@ -44,14 +44,24 @@ namespace NodesApp.BLL.Services
             return entity;
         }
 
-        public IEnumerable<Node> Get(Expression<Func<Node, bool>> condition)
+        public IEnumerable<Node> Get(Expression<Func<Node, bool>> condition, int skip, int take)
         {
-            return _context.Nodes.Where(condition).ToList();
+            return _context.Nodes
+                .Where(condition)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
         public Node GetNodeByLink(string link)
         {
-            throw new NotImplementedException();
+            var entity = _context.Nodes
+                .FirstOrDefault(x => x.Link == link);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
         }
 
         public int Update(IEnumerable<Node> entity)

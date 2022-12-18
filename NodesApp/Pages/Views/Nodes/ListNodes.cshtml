@@ -5,4 +5,39 @@
 @{
 }
 
+<h2>Nodes </h2>
 
+<table class="table">
+<thead>
+<tr>
+    <th>
+        Node name
+    </th>
+    <th>
+        Link
+    </th>
+    <th>
+        Text
+    </th>
+</tr>
+</thead>
+    <tbody>
+        @foreach (var item in Model.Nodes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NodeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Link)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("CreateNode", "Nodes")">
+          <span>Create Node</span>
+</a>
