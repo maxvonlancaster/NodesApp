@@ -19,6 +19,9 @@
     <th>
         Text
     </th>
+    <th>
+        Go to
+    </th>
 </tr>
 </thead>
     <tbody>
@@ -33,6 +36,11 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    <a href="@Url.Action("Node", "Nodes", new { id = item.NodeId })">
+                        <span>Go to node</span>
+                    </a>
                 </td>
             </tr>
         }

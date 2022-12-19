@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NodesApp.BLL.Services.Interfaces;
+﻿using NodesApp.BLL.Services.Interfaces;
 using NodesApp.DAL;
 using NodesApp.DAL.Entities;
 using NodesApp.DAL.Exceptions;

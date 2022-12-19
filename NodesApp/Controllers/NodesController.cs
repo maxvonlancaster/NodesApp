@@ -55,7 +55,6 @@ namespace NodesApp.Controllers
             model.DateCreated = DateTime.Now;
             var id = _nodeService.Add(model.ToEntity());
             return RedirectToAction("ListNodes");
-            //return View("~/Pages/Views/Nodes/ListNodes.cshtml");
         }
 
         [HttpPut("{id}")]

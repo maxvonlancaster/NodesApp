@@ -5,8 +5,8 @@
 3. Authorization
 4. Middleware + Filters
 5. Add bootstrap
-6. 
-7. 
+6. Better ui
+7. Filtering
 8. 
 9. 
 
