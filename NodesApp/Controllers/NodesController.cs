@@ -76,5 +76,19 @@ namespace NodesApp.Controllers
             _nodeService.Delete(id);
             return NoContent();
         }
+
+        public IActionResult ListNodes(string filter)
+        {
+            var entities = _nodeService
+                .Get(x => x.Text.Contains(filter) || x.NodeName.Contains(filter), 0, 10)
+                .ToList();
+            NodesListModel model = new NodesListModel();
+            model.Nodes = new List<NodeModel>();
+            foreach (var entity in entities)
+            {
+                model.Nodes.Add(new NodeModel(entity));
+            }
+            return View("~/Pages/Views/Nodes/ListNodes.cshtml", model);
+        }
     }
 }
