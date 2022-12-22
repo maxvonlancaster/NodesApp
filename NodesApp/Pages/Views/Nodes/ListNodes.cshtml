@@ -7,19 +7,20 @@
 
 <h2>Nodes </h2>
 
-<table class="table">
+<div class="table-responsive-sm">
+<table class="table table-bordered">
 <thead>
 <tr>
-    <th>
+            <th scope="col">
         Node name
     </th>
-    <th>
+            <th scope="col">
         Link
     </th>
-    <th>
+            <th scope="col">
         Text
     </th>
-    <th>
+            <th scope="col">
         Go to
     </th>
 </tr>
@@ -28,7 +29,7 @@
         @foreach (var item in Model.Nodes)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.NodeName)
                 </td>
                 <td>
@@ -49,3 +50,4 @@
 <a href="@Url.Action("CreateNode", "Nodes")">
           <span>Create Node</span>
 </a>
+</div>
