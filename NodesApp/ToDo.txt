@@ -7,7 +7,7 @@
 5. Add bootstrap
 6. Better ui
 7. Filtering
-8. 
+8. Paggination
 9. 
 
 

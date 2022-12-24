@@ -24,6 +24,16 @@ namespace NodesApp.Controllers
             return View("~/Pages/Views/Nodes/CreateNode.cshtml");
         }
 
+        public IActionResult EditNode(long id)
+        {
+            var node = _nodeService.Get(id);
+            if (node == null)
+            {
+                return NotFound();
+            }
+            return View("~/Pages/Views/Nodes/EditNode.cshtml", new NodeModel(node));
+        }
+
         public IActionResult ListNodes()
         {
             var entities = _nodeService.Get(x => true, 0, 10).ToList();
