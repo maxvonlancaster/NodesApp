@@ -21,3 +21,7 @@ function createNode(){
         }
     });
 }
+
+function updateNode() { }
+
+function deleteNode() { }

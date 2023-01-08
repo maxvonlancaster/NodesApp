@@ -52,6 +52,17 @@ namespace NodesApp.BLL.Services
                 .ToList();
         }
 
+        public User GetByCredentials(string userName, string password)
+        {
+            var entity = _context.Users
+                .FirstOrDefault(x => x.UserName == userName && x.Password == password);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(typeof(Comment));
+            }
+            return entity;
+        }
+
         public User GetByUserName(string userName)
         {
             var entity = _context.Users
