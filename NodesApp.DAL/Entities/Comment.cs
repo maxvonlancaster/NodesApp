@@ -12,5 +12,8 @@
         public virtual Post Post { get; set; }
         public virtual User Poster { get; set; }
 
+        //public virtual IEnumerable<Comment> Responses { get; set; }
+        //public virtual Comment ResponseTo { get; set; }
+
     }
 }

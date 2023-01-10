@@ -13,5 +13,7 @@ namespace NodesApp.DAL.Entities
 
         public virtual List<UserNode> UserNodes { get; set; }
 
+        //public string TelegramId { get; set; }
+
     }
 }

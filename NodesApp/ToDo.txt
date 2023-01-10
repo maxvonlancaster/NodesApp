@@ -8,7 +8,9 @@
 6. Better ui
 7. Filtering
 8. Paggination
-9. 
+9. Logging 
+10. 
+11. 
 
 
 
