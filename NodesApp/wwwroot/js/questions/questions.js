@@ -25,7 +25,18 @@ function dataTypes() {
 
 //2. Compare the reference types and primitive types.
 function referencePrimitiveComparison() {
+    // Numbers, boolean values, and the null and undefined types are primitive. Objects, arrays,
+    // and functions are reference types.A primitive type has a fixed size in memory.
 
+    var a = 3.14;  // Declare and initialize a variable
+    var b = a;     // Copy the variable's value to a new variable
+    a = 4;         // Modify the value of the original variable
+    alert(b)       // Displays 3.14; the copy has not changed
+
+    var a = [1, 2, 3];  // Initialize a variable to refer to an array
+    var b = a;        // Copy that reference into a new variable
+    a[0] = 99;        // Modify the array using the original reference
+    alert(b);         // Display the changed array [99,2,3] using the new reference
 }
 
 //3. Describe the ways of checking data types.What are the possible difficulties of determining the data type ?
@@ -46,8 +57,20 @@ function checkingDataTypes() {
 }
 
 //4. Describe the difference between Abstract Equality Comparison and Strict Equality Comparison.
+function comparisonsDifferences() {
+
+}
+
 //5. Describe the process of the type coercion and rules of comparing the same and different data types.
+function typeCoersion() {
+
+}
+
 //6. Name the built -in and native types.Describe wrappers / boxing.
+function builtInNativeTypes() {
+
+}
+
 //7. Name the data types that can and cannot contain values / types of objects.Name the ways to detect them.
 
 //8. What is the practical use of the Symbol data type ?
@@ -56,6 +79,8 @@ function symbolUsage() {
     // a symbol is a unique identifier;
 
 }
+
+
 
 //    Grammar
 
@@ -71,6 +96,24 @@ function operatorPrecedence() {
 }
 
 //11. Explain what Objects and Arrays destructuring is.
+function objectDestructuring() {
+    // The destructuring assignment syntax is a JavaScript expression that makes it possible
+    // to unpack values from arrays, or properties from objects, into distinct variables.
+    let a, b, rest;
+    [a, b] = [10, 20];
+
+    console.log(b);
+    // Expected output: 20
+
+    [a, b, ...rest] = [10, 20, 30, 40, 50];
+
+    console.log(a);
+    // Expected output: 10
+
+    console.log(rest);
+    // Expected output: Array [30, 40, 50]
+}
+
 //12. Specify loops, conditions, and the execution context.
 //13. Describe the error handling process in JavaScript.
 //14. How / when to use the Use strict directive ? How does it affect the JavaScript execution ?
