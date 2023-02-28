@@ -115,7 +115,28 @@ function objectDestructuring() {
 }
 
 //12. Specify loops, conditions, and the execution context.
+
 //13. Describe the error handling process in JavaScript.
+function errorHandling() {
+    // Just about any object can be thrown in JavaScript. Nevertheless, not all thrown objects
+    // are created equal.While it is common to throw numbers or strings as errors, it is frequently
+    // more effective to use one of the exception types specifically created for this purpose:
+
+    // Use the throw statement to throw an exception.A throw statement specifies the value to be thrown:
+
+    throw "Error2"; // String type
+    throw 42; // Number type
+    throw true; // Boolean type
+    throw {
+        toString() {
+            return "I'm an object!";
+        },
+    };
+
+    // The try...catch statement marks a block of statements to try, and specifies one or more 
+    // responses should an exception be thrown.
+}
+
 //14. How / when to use the Use strict directive ? How does it affect the JavaScript execution ?
 
 

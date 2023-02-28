@@ -10,4 +10,10 @@
     <ProjectReference Include="..\NodesApp.DAL\NodesApp.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Playground\TextFile1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
